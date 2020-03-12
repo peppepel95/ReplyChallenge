@@ -32,33 +32,37 @@ output['pms'] = info['pms']
 added_pms = set()
 added_dev = set()
 
-visited_nodes = set()
+visited_nodes = {}
 
-for node in G.nodes():
-    if node[2] == "M" and node not in visited_nodes:
-        visited_nodes.add(node)
 
-        pms[0]['pos'] = (node[0], node[1])
-        added_pms.add(pms[0])
-        current_pm = pms[0]
-        pms.pop(0)
+for c in components:
+    for node in c:
+        if node[2] == "M" and node not in visited_nodes:
 
-        adj_nodes = []
-        for adj_node in G.neighbors(node):
-            if adj_node[2] != "M" and adj_node not in visited_nodes:
-                adj_nodes.append(adj_node)
-                visited_nodes.add(adj_node)
+            pms[0]['pos'] = (node[0], node[1])
+            visited_nodes[node] = pms[0]
 
-        while len(adj_nodes) != 0:
-            current_node = adj_nodes.pop(0)
-            for adj_node in G.neighbors(current_node):
+            added_pms.add(pms[0])
+            current_pm = pms[0]
+            pms.pop(0)
+
+            for adj_node in G.neighbors(node):
                 if adj_node[2] != "M" and adj_node not in visited_nodes:
-                    adj_nodes.append(adj_node)
-                    visited_nodes.add(adj_node)
+                    dev = dev_companies[current_pm['company']][0]
+                    dev['pos'] = (adj_node[0], adj_node[1])
+                    visited_nodes[adj_node] = dev
+                    added_dev.add(dev['id'])
 
-            dev = dev_companies[current_pm['company']][0]
+    while len(visited_nodes) <= len(c):
+            for node in c:
+                if node in visited_nodes:
+                    current_node = visited_nodes[node]
+                    for adj_node in G.neighbors(node):
+                        if adj_node[2] != "M" and adj_node not in visited_nodes:
+                            visited_nodes[adj_node] =
+                            dev = dev_companies[current_node['company']][0]
 
-            
+
 
 
 
