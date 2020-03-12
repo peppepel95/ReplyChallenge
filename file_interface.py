@@ -59,15 +59,7 @@ def read_file(filename):
 
 def write_file(filename, output):
     with open(filename, 'w') as f:
-        f.write(str(output['n_libreries'])+"\n")
-        for key, value in output['libreries'].items():
-            f.write(str(key)+" "+str(len(value))+"\n")
-            i = 0
-            for elem in value:
-                f.write(str(elem))
-                if i == len(value)-1:
-                    f.write("\n")
-                    break
-                else:
-                    f.write(" ")
-                i += 1
+        for dev in output['developers']:
+            f.write(dev['pos']+"\n")
+        for pm in output['pms']:
+            f.write(pm['pos']+"\n")
