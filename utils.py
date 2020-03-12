@@ -23,3 +23,18 @@ def extract_developers(developers, companies):
                     dev_companies[comp] = []
                 dev_companies[comp].append(dev)
     return dev_companies
+
+def compute_score(first, second):
+    score = 0
+
+    if first['company'] == second['company']:
+        score += first['bonus'] * second['bonus']
+    if "skills" in first and "skills" in second:
+        skills_first = set(first['skills'])
+        skills_second = set(second['skills'])
+        intersection = len(skills_first.intersection(skills_second))
+        difference = len(skills_first.union(skills_second)) - intersection
+        score += intersection * difference
+
+    return score
+
