@@ -34,7 +34,7 @@ def read_file(filename):
             developer['n_skills'] = int(data[2])
             developer['skills'] = []
             for j in range(developer['n_skills']):
-                developer['skills'].append(data[2+j])
+                developer['skills'].append(data[3+j])
             developers.append(developer)
         info['developers'] = developers
         part1 = part1[info['n_devs']:]
@@ -45,6 +45,7 @@ def read_file(filename):
             pm = {}
             data = part1[i].split(" ")
             pm['company'] = data[0]
+            companies[data[0]] += 1
             pm['bonus'] = int(data[1])
             pms.append(pm)
         info['pms'] = pms
