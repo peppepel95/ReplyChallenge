@@ -61,6 +61,3 @@ def write_file(filename, output):
                 else:
                     f.write(" ")
                 i += 1
-
-info = read_file("a_solar.txt")
-print(info)
