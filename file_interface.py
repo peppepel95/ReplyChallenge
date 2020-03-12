@@ -21,10 +21,15 @@ def read_file(filename):
         info['n_devs'] = int(part1[0])
         part1 = part1[1:]
         developers = []
+        companies = {}
         for i in range(info['n_devs']):
             developer = {}
             data = part1[i].split(" ")
-            developer['company'] = data[0]
+            company = data[0]
+            if company not in companies.keys():
+                companies[company] = 0
+            developer['company'] = company
+            companies[company] += 1
             developer['bonus'] = int(data[1])
             developer['n_skills'] = int(data[2])
             developer['skills'] = []
@@ -44,7 +49,7 @@ def read_file(filename):
             pms.append(pm)
         info['pms'] = pms
 
-        return info
+        return info, companies
 
 
 def write_file(filename, output):
