@@ -28,6 +28,8 @@ def read_file(filename):
             company = data[0]
             if company not in companies.keys():
                 companies[company] = 0
+            developer['id'] = i
+            developer['pos'] = 'X'
             developer['company'] = company
             companies[company] += 1
             developer['bonus'] = int(data[1])
@@ -44,6 +46,8 @@ def read_file(filename):
         for i in range(info['n_pms']):
             pm = {}
             data = part1[i].split(" ")
+            pm['id'] = i
+            pm['pos'] = 'X'
             pm['company'] = data[0]
             companies[data[0]] += 1
             pm['bonus'] = int(data[1])
