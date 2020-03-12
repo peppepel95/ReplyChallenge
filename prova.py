@@ -1,5 +1,6 @@
 from file_interface import read_file, write_file
 from utils import process_map, extract_developers
+from graph import extract_graph
 import numpy as np
 from multiprocessing import Pool
 
@@ -9,13 +10,14 @@ files = ['a_solar.txt', 'b_dream.txt', 'c_soup.txt', 'd_maelstrom.txt', 'e_igloo
 #     read_file(file)
 info, companies = read_file(files[0])
 map = info['map']
-
+G, components = extract_graph(map)
+print(G, components)
 PM, DE = process_map(map)
 
 pms = info['pms']
 pms.sort(key=lambda x:(companies[x['company']], x['bonus']), reverse=True)
 developers = info['developers']
-developers.sort(key=lambda x:x['n_skills'], reverse=True)
+developers.sort(key=lambda x: x['n_skills'], reverse=True)
 
 dev_companies = extract_developers(developers, companies)
 
